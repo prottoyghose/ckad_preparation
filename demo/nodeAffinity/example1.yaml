@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2020-04-06T17:02:25Z"
+  generation: 3
+  labels:
+    app: blue
+  name: blue
+  namespace: default
+  resourceVersion: "3201"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/blue
+  uid: 83011dab-a930-403a-84c1-ff15ba714c4a
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 6
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: blue
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: blue
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - blue
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 6
+  conditions:
+  - lastTransitionTime: "2020-04-06T17:02:52Z"
+    lastUpdateTime: "2020-04-06T17:02:52Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2020-04-06T17:02:25Z"
+    lastUpdateTime: "2020-04-06T17:13:25Z"
+    message: ReplicaSet "blue-64dd5b96b9" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 3
+  readyReplicas: 6
+  replicas: 6
+  updatedReplicas: 6

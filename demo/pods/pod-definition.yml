@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: avenger
+  labels:
+    app: my-app
+    location: columbus
+spec:
+  containers:
+    - name: nginx-containers
+      image: nginx
+
